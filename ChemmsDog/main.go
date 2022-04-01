@@ -299,11 +299,6 @@ var addRFi []string
 var chaZiDian map[string]interface{}
 
 func MapNewLop(cha *chan sync.Map) {
-	time.Sleep(time.Second)
-	time.Sleep(time.Second)
-	time.Sleep(time.Second)
-	time.Sleep(time.Second)
-	time.Sleep(time.Second)
 	go MapNewStu(cha)
 }
 
@@ -311,16 +306,32 @@ var slaAr []string
 var slaLr []int64
 var slaAar chan []string
 var slaLar chan []int64
+var slaAar0 chan []string
+var slaLar0 chan []int64
+var dicklen []string
+var dickis bool
 
 func MapNewStu(cha *chan sync.Map) {
+	time.Sleep(time.Second)
 	slaAr = make([]string, 100000)
 	slaLr = make([]int64, 100000)
-	fmt.Println(len(*cha))
+	// fmt.Println(len(*cha))
 	a0 = allStau
 	a0.Range(func(k, v interface{}) bool {
-		fmt.Println(k, v)
+		if k != "all" && k != "user" && k != "tri" {
+			for _, vs := range dicklen {
+				if vs == k.(string) {
+					dickis = true
+				}
+			}
+			if dickis == false {
+				dicklen = append(dicklen, k.(string))
+			}
+			dickis = false
+		}
+		// fmt.Println(k, v)
 		if k.(string) == "online" {
-			fmt.Println("hduiawhusz", v)
+			// fmt.Println("hduiawhusz", v)
 			for k0, i := range v.([]string) {
 				slaAr[k0] = strings.Split(i, ":")[0]
 				tek, _ := strconv.ParseInt(strings.Split(i, ":")[1], 10, 64)
@@ -330,6 +341,7 @@ func MapNewStu(cha *chan sync.Map) {
 		}
 		return true
 	})
+	// fmt.Println("hduawih", dicklen)
 	var lisRan int64 = int64(len(slaAr))
 	var lisRanKaGe int64 = int64(len(slaLr))
 	if lisRan != lisRanKaGe {
@@ -350,6 +362,8 @@ func MapNewStu(cha *chan sync.Map) {
 	// }
 	slaAar <- slaAr
 	slaLar <- slaLr
+	slaAar0 <- slaAr
+	slaLar0 <- slaLr
 	// fmt.Println(slaLr, slaAr)
 	go MapNewLop(cha)
 }
@@ -444,6 +458,7 @@ func deLop() {
 }
 
 func delFil() {
+	// fmt.Println("运了")
 	//建立对每个服务器的连接，发送文件，之后对面收,改管道，一次只发一个部分
 	if len(CHesm3) > 0 {
 		fmt.Println("建立对每个服务器的连接，发送文件，之后对面收,改管道，一次只发一个部分")
@@ -498,9 +513,10 @@ func delFil() {
 
 func getZawarodoToMadeinheaven() {
 	if len(slaLar) >= 1 {
+		fmt.Println("取药娘美少女成功zhong", len(slaLar))
 		slaLr := <-slaLar
 		slaAr := <-slaAar
-		fmt.Println("取值成功")
+		// fmt.Println("取值成功", slaAr)
 		var cpa = make([]string, 0, 100000)
 		var fhu = make([]string, 0, 100000)
 		a0.Range(func(k, v interface{}) bool {
@@ -525,7 +541,7 @@ func getZawarodoToMadeinheaven() {
 		})
 		var lop = len(cpa)
 		var dps int64
-		fmt.Println("有", lop)
+		// fmt.Println("有", lop)
 		for lop > 0 {
 			for k, v := range slaLr {
 				if slaLr[0] > 0 {
@@ -560,6 +576,104 @@ func getZawarodoToMadeinheaven() {
 
 func betozadasuto() {
 	go getZawarodoToMadeinheaven()
+}
+
+var dicklens int
+var sal00 []string
+var saa00 []int64
+var tmsaa int64
+
+func getZawarodoToMadeinheaven0() {
+	if len(slaLar0) >= 1 {
+		fmt.Println("取美少女成功zhong", len(slaLar0), sal00)
+		saa00 = <-slaLar0
+		sal00 = <-slaAar0
+		tmsaa = 1
+	} else {
+		go betozadasuto0()
+		return
+	}
+	if tmsaa == 0 {
+		go betozadasuto0()
+		return
+	}
+	// fmt.Println("取美少女成功", sal00)
+	var cpa = make([]string, 0, 100000)
+	var fhu = make([]string, 0, 100000)
+	a0.Range(func(k, v interface{}) bool {
+		if k != "all" && k != "user" && k != "online" && k != "tri" {
+			temMes, err := ioutil.ReadDir(k.(string) + "/CDFS/slavePreegPussy/")
+			if err != nil {
+				fmt.Print("分配美少女错误")
+				fmt.Println(err)
+			}
+			for _, file := range temMes {
+				if file.Name() == "" {
+					break
+				}
+				if dicklens > len(dicklen)-1 {
+					dicklens = 0
+				}
+				fmt.Println(file.Name())
+				fmt.Printf("%T", file.Name())
+				if dicklen[dicklens] == "online" {
+					dicklens += 1
+					fmt.Println("美少女怀上我的小宝宝")
+					fhu = append(fhu, file.Name())
+					cpa = append(cpa, k.(string)+"/CDFS/slavePreegPussy/"+file.Name())
+				} else {
+					dicklens += 1
+					fmt.Println("美少女被我内射了")
+					Cofile(k.(string)+"/CDFS/hostPreegPussy/"+file.Name(), k.(string)+"/CDFS/slavePreegPussy/"+file.Name())
+					addRFi = append(addRFi, k.(string)+"/CDFS/hostPreegPussy/"+file.Name())
+					chaZiDian[strings.Split(file.Name(), "_")[0]] = addRFi
+					metaSVE()
+					err := os.Remove(k.(string) + "/CDFS/slavePreegPussy/" + file.Name())
+					if err != nil {
+						fmt.Println("删除零时美少女失败", err)
+					}
+				}
+			}
+			//通过将文件嘉进行遍历，获得每个文件尺寸，根据仆从鸡内部大小安排文件
+		}
+		return true
+	})
+	var lop = len(cpa)
+	var dps int64
+	// fmt.Println("有", lop)
+	for lop > 0 {
+		for k, v := range slaLr {
+			if slaLr[0] > 0 {
+				if v <= 0 && k != 0 && lop > 0 {
+					continue
+				} else {
+					filInf, _ := os.Lstat(cpa[dps])
+					if filInf != nil {
+						fmt.Println(1)
+						CHesm1 <- slaAr[k]
+						CHesm2 <- cpa[dps]
+						CHesm3 <- fhu[dps]
+						slaLr[k] -= 1
+						lop -= 1
+						dps += 1
+					} else {
+						dps += 1
+					}
+					if lop <= 0 {
+						fmt.Println("超过内容")
+						return
+					}
+				}
+			} else {
+				break
+			}
+		}
+	}
+	go betozadasuto0()
+}
+
+func betozadasuto0() {
+	go getZawarodoToMadeinheaven0()
 }
 
 func filEat(AdL string, AdL0 string) {
@@ -804,7 +918,8 @@ func sopt() {
 }
 
 var thoren int64
-var metaSlave []string
+
+// var metaSlave []string
 
 func procoser114(conn net.Conn) {
 	thoren += 1
@@ -842,9 +957,9 @@ func procoser114(conn net.Conn) {
 						writer := bufio.NewWriter(file)
 						writer.WriteString(stA[0])
 						writer.Flush()
-						metaSlave = append(metaSlave, k.(string)+"/CDFS/slavePreegPussy/"+stA[1])
-						chaZiDian[strings.Split(stA[1], "_")[0]] = metaSlave
-						metaSVE()
+						// metaSlave = append(metaSlave, k.(string)+"/CDFS/slavePreegPussy/"+stA[1])
+						// chaZiDian[strings.Split(stA[1], "_")[0]] = metaSlave
+						// metaSVE()
 					}
 				}
 			}
@@ -854,6 +969,8 @@ func procoser114(conn net.Conn) {
 	thoren -= 1
 	fmt.Println("释放", thoren)
 }
+
+var metaSlave []string
 
 func TcpSAO0() {
 	metaSlave = make([]string, 0, 100000)
@@ -897,6 +1014,8 @@ func metaSVE() {
 
 var tmpSty = "Bcard"
 
+var sts string
+
 func procoser0(conn net.Conn) {
 	defer conn.Close()
 	buf := make([]byte, 1024*1024)
@@ -904,7 +1023,7 @@ func procoser0(conn net.Conn) {
 	if err != nil {
 		fmt.Println("打错", err, n)
 	}
-	sts := string(buf[:n])
+	sts = string(buf[:n])
 	fmt.Println(sts)
 	if strings.Split(sts, "|")[0] == "u" {
 		if strings.Split(sts, "|")[1] == "for" {
@@ -916,7 +1035,10 @@ func procoser0(conn net.Conn) {
 		}
 	}
 	if strings.Split(sts, "|")[0] == "o" {
-		fmt.Println(strings.Split(sts, "|")[4])
+		fmt.Println(strings.Split(sts, "|")[4], len(strings.Split(sts, "|")))
+		for k, v := range strings.Split(sts, "|") {
+			fmt.Println(k, v, "pussy")
+		}
 		isdohfgjhs()
 	}
 
@@ -960,8 +1082,6 @@ func Cofile(tarFil string, getFil string) (wrien int64, err error) {
 var temSts string
 
 var tmpMod map[string]interface{}
-
-var sts string
 
 func isdohfgjhs() {
 	file, err := os.OpenFile("./meta/Bcard.meta", os.O_RDONLY, 0777)
@@ -1033,7 +1153,20 @@ func procoser01(conn net.Conn) {
 	if ok {
 		for _, v := range nas.([]interface{}) {
 			if strings.Split(v.(string), ":")[0] == "onServ" {
-				continue
+				if temSts == strings.Split(strings.Split(v.(string), ":")[1], "|")[0] {
+					continue
+				}
+				conn, err := net.Dial("tcp", strings.Split(strings.Split(v.(string), ":")[1], "|")[0]+":1949")
+				if err != nil {
+					fmt.Println("连接错误", err)
+				}
+				n, errLei := conn.Write([]byte(strings.Split(sts, "|")[4]))
+				if errLei != nil {
+					fmt.Println("发送大失败了", err, n)
+				} else {
+					temSts = strings.Split(strings.Split(v.(string), ":")[1], "|")[0]
+				}
+				defer conn.Close()
 			} else {
 				fmt.Println(strings.Split(conn.RemoteAddr().String(), ":")[0], 3)
 				connz, err := net.Dial("tcp", strings.Split(conn.RemoteAddr().String(), ":")[0]+":1927")
@@ -1179,6 +1312,10 @@ func main() {
 	CHesm3 = make(chan string, 1000)
 	slaLar = make(chan []int64, 1000)
 	slaAar = make(chan []string, 1000)
+	slaLar0 = make(chan []int64, 1000)
+	slaAar0 = make(chan []string, 1000)
+	saa00 = make([]int64, 1000)
+	sal00 = make([]string, 1000)
 	st = make(chan int, 1)
 	sopt()
 	go writeLi()
@@ -1186,6 +1323,7 @@ func main() {
 	go delFil()
 	go MapNewStu(&cha)
 	go getZawarodoToMadeinheaven()
+	go getZawarodoToMadeinheaven0()
 	go TcpSAO1()
 	var a uint64
 	var Pussy = &a
